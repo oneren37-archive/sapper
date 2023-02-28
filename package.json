@@ -1,0 +1,19 @@
+{
+  "name": "sapper",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "webpack serve --mode development",
+    "build": "webpack build --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oneren37/sapper.git"
+  },
+  "author": "oneren37",
+  "devDependencies": {
+    "html-webpack-plugin": "^5.5.0",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
+  }
+}
