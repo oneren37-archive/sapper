@@ -1,7 +1,11 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     padding: 0;
     margin: 0;
-    min-width: 393px;
+    min-width: 560px;
 }
 
 .wrapper {
@@ -11,10 +15,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-}
 
-.root {
-    width: 393px;
-    height: 452px;
-    border: 1px solid red
+    background-color: #eee;
 }

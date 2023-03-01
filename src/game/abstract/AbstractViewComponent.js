@@ -1,14 +1,25 @@
 export default class AbstractViewComponent {
-    /** @type {EventEmitter} */
-    #eventEmitter
-    
+    /** 
+     * @type {EventEmitter} 
+     * @protected
+     */
+    _eventEmitter
+
+    /** 
+     * @type {HTMLElement} 
+     * @protected
+     */
+    _root 
+
     /**
      * @param {HTMLElement} root 
+     * @param {EventEmitter} [eventEmitter]
      */
-    constructor(root) {
-        this.findElements()
+    constructor(root, eventEmitter) {
+        this._root = root
+        this._eventEmitter = eventEmitter
+
         this.bindEvents()
-        this.render()
     }
 
     /**
@@ -18,14 +29,6 @@ export default class AbstractViewComponent {
      * @returns {void}
      */
     bindEvents() {}
-
-    /**
-     * Поиск DOM элементов
-     * @abstract
-     * @protected
-     * @returns {void}
-     */
-    findElements() {}
 
     /**
      * @param {Object} [props] 
