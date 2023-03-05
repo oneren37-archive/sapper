@@ -30,18 +30,25 @@ export default class SmileView extends AbstractViewComponent {
         this._root.addEventListener('mouseleave', () => {
             if (this.#pressed) {
                 this.#pressed = false
-                this.render('normal')
+                this.render(this.status)
             }
         })
         this._root.addEventListener('mouseup', () => {
             if (this.#pressed) {
                 this.#pressed = false
-                this.render('normal')
+                this.status = 'normal'
+                this.render(this.status)
                 this._eventEmitter.emit(EVT.restart)
             }  
         })
-        this._eventEmitter.on(EVT.win, () => this.render('win'))
-        this._eventEmitter.on(EVT.lose, () => this.render('lose'))
+        this._eventEmitter.on(EVT.win, () => {
+            this.status = 'win'
+            this.render(this.status)
+        })
+        this._eventEmitter.on(EVT.lose, () => {
+            this.status = 'lose'
+            this.render(this.status)
+        })
         this._eventEmitter.on(EVT.smileUpdated, (status) => {
             if (status === 'no_waiting') {
                 if (this.status !== 'waiting') return 
