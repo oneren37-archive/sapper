@@ -51,10 +51,14 @@ export default class BoardView extends AbstractViewComponent {
      * @param {MouseEvent} e 
      * @param {Position}
      */
-    handleMouseUp(e, pos) {
+    handleMouseUp(e, pos, flagState) {
         const [i, j] = pos
         switch (e.button) {
-            case 0: this._eventEmitter.emit(EVT.pick, [i, j]); break;
+            case 0: 
+                if (flagState === 0) {
+                    this._eventEmitter.emit(EVT.pick, [i, j])
+                }
+                break;
             case 2: this._eventEmitter.emit(EVT.r_pick, [i, j]); break;
             default: break;
         }
@@ -90,7 +94,7 @@ export default class BoardView extends AbstractViewComponent {
                         props.opened ? props.opened[i][j] : false,
                     )
                 })
-                cell.addEventListener('mouseup', (e) => this.handleMouseUp(e, [i, j]))
+                cell.addEventListener('mouseup', (e) => this.handleMouseUp(e, [i, j], props.flags ? props.flags[i][j] : 0))
                 cell.classList.add('board-row__cell')
 
                 
