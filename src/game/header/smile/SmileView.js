@@ -4,6 +4,8 @@ import { EVT } from "../../EventEmitter";
 import './Smile.scss'
 
 export default class SmileView extends AbstractViewComponent {
+    #pressed = false
+
     constructor(root, eventEmitter) {
         super(root, eventEmitter)
         this.render('normal')
@@ -21,11 +23,19 @@ export default class SmileView extends AbstractViewComponent {
 
     bindEvents() {
         this._root.addEventListener('mousedown', () => {
+            this.#pressed = true
             this.render('pressed')
         })
-        this._root.addEventListener('mouseup', () => {
+        this._root.addEventListener('mouseleave', () => {
+            this.#pressed = false
             this.render('normal')
-            this._eventEmitter.emit(EVT.restart)
+        })
+        this._root.addEventListener('mouseup', () => {
+            if (this.#pressed) {
+                this.#pressed = false
+                this.render('normal')
+                this._eventEmitter.emit(EVT.restart)
+            }  
         })
         this._eventEmitter.on(EVT.win, () => this.render('win'))
         this._eventEmitter.on(EVT.lose, () => this.render('lose'))

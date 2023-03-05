@@ -6,6 +6,9 @@ import './Board.scss'
 export default class BoardView extends AbstractViewComponent {
     constructor(root, eventEmitter, config) {
         super(root, eventEmitter)
+        this.pressed = new Array(config.fieldY).fill(0).map(
+            () => new Array(config.fieldX).fill(false)
+        )
         this.render(config)
     }
 
@@ -32,7 +35,9 @@ export default class BoardView extends AbstractViewComponent {
      * @param {MouseEvent} e
      * @param {0|1|2} flagState
      */
-    handleMouseDown(e, flagState, openedState) {
+    handleMouseDown(e, pos, flagState, openedState) {
+        const [i, j] = pos
+        this.pressed[i][j] = true
         switch(e.button) {
             case 0: 
                 if (flagState === 0 && !openedState) {
@@ -53,6 +58,7 @@ export default class BoardView extends AbstractViewComponent {
      */
     handleMouseUp(e, pos, flagState) {
         const [i, j] = pos
+        if (!this.pressed[i][j] === true) return 
         switch (e.button) {
             case 0: 
                 if (flagState === 0) {
@@ -90,14 +96,20 @@ export default class BoardView extends AbstractViewComponent {
                 cell.addEventListener('contextmenu', (e) => e.preventDefault())
                 cell.addEventListener('mousedown', (e) => {
                     this.handleMouseDown(e, 
+                        [i, j],
                         props.flags ? props.flags[i][j] : 0,
-                        props.opened ? props.opened[i][j] : false,
+                        props.opened ? props.opened[i][j] : false
                     )
                 })
                 cell.addEventListener('mouseup', (e) => this.handleMouseUp(e, [i, j], props.flags ? props.flags[i][j] : 0))
+                cell.addEventListener('mouseleave', (e) => {
+                    this.pressed[i][j] = false
+                    e.target.classList.remove('board-row__cell_question-pressed')
+                    this._eventEmitter.emit(EVT.smileUpdated, 'normal')
+                })
                 cell.classList.add('board-row__cell')
 
-                
+
                 if (props.opened && props.opened[i][j]) {
                     cell.classList.add(`board-row__cell_${props.mines[i][j]}`)
                 }
