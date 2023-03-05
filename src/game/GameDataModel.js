@@ -35,9 +35,6 @@ export default class GameDataModel {
             this.setInitialState()
             this._eventEmitter.emit(EVT.boardUpdated, this.#state)
         })
-        this._eventEmitter.on(EVT.mousedown, () => {
-            this._eventEmitter.emit(EVT.waiting)
-        })
     }
 
     /**@param {Positon} pos */
@@ -64,7 +61,7 @@ export default class GameDataModel {
             this._eventEmitter.emit(EVT.lose)
         }
         else {
-            this._eventEmitter.emit(EVT.game_continue)
+            this._eventEmitter.emit(EVT.smileUpdated, 'normal')
             this.openField(pos)
         }
 

@@ -32,9 +32,13 @@ export default class BoardView extends AbstractViewComponent {
      * @param {MouseEvent} e
      * @param {0|1|2} flagState
      */
-    handleMouseDown(e, flagState) {
+    handleMouseDown(e, flagState, openedState) {
         switch(e.button) {
-            case 0: this._eventEmitter.emit(EVT.mousedown); break;
+            case 0: 
+                if (flagState === 0 && !openedState) {
+                    this._eventEmitter.emit(EVT.smileUpdated, 'waiting')
+                } 
+                break;
             case 2: 
                 if (flagState !== 0) {
                     e.target.classList.add('board-row__cell_question-pressed')
@@ -81,7 +85,10 @@ export default class BoardView extends AbstractViewComponent {
 
                 cell.addEventListener('contextmenu', (e) => e.preventDefault())
                 cell.addEventListener('mousedown', (e) => {
-                    this.handleMouseDown(e, props.flags ? props.flags[i][j] : 0)
+                    this.handleMouseDown(e, 
+                        props.flags ? props.flags[i][j] : 0,
+                        props.opened ? props.opened[i][j] : false,
+                    )
                 })
                 cell.addEventListener('mouseup', (e) => this.handleMouseUp(e, [i, j]))
                 cell.classList.add('board-row__cell')

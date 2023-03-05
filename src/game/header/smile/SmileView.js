@@ -29,7 +29,6 @@ export default class SmileView extends AbstractViewComponent {
         })
         this._eventEmitter.on(EVT.win, () => this.render('win'))
         this._eventEmitter.on(EVT.lose, () => this.render('lose'))
-        this._eventEmitter.on(EVT.waiting, () => this.render('waiting'))
-        this._eventEmitter.on(EVT.game_continue, () => this.render('normal'))
+        this._eventEmitter.on(EVT.smileUpdated, (status) => this.render(status))
     }
 }

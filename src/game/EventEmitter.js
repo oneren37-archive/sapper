@@ -41,13 +41,13 @@ export const EVT = {
     pick: 'pick',
     r_pick: 'r_pick',
     restart: 'restart',
-    mousedown: 'mousedown',
+
     // апдейт вьюшек при изменившемся состоянии
     boardUpdated: 'boardUpdated',
     flagsCountChanged: 'flagsCountChanged',
-    waiting: 'waiting',
-    //состояния игры
+    smileUpdated: 'smileUpdated',
+
+    //окончание игры
     win: 'win',
-    lose: 'lose',
-    game_continue: 'game_continue',
+    lose: 'lose'
 }
