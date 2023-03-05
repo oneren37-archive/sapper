@@ -16,8 +16,12 @@ export default class GameView extends AbstractViewComponent {
      * @param {number} config.minesCount
      */
     render(config) {
+        const headerRoot = document.createElement('header')
+        headerRoot.classList.add('header')
+        this._root.appendChild(headerRoot)
+
         this.header = new HeaderView(
-            document.querySelector('.header'),
+            headerRoot,
             this._eventEmitter,
             {minesCount: config.minesCount}
         )
