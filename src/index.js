@@ -4,8 +4,8 @@ import Game from './game/Game'
 document.addEventListener('DOMContentLoaded', () => {
     new Game({
         rootNode: document.querySelector('.root'),
-        fieldX: 20,
-        fieldY: 10,
-        minesCount: 5
+        fieldX: 16,
+        fieldY: 16,
+        minesCount: 40
     })
 })
