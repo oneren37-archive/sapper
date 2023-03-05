@@ -6,17 +6,17 @@ import TimeView from './time/TimeView'
 import './Header.scss'
 
 export default class HeaderView extends AbstractViewComponent {
-    constructor(root, eventEmitter) {
+    constructor(root, eventEmitter, config) {
         super(root, eventEmitter)
-        this.render()
+        this.render(config)
     }
 
-    render() {
+    render(config) {
         const counterRoot = document.createElement('div')
         const smileRoot = document.createElement('div')
         const timeRoot = document.createElement('div')
 
-        new CounterView(counterRoot, this._eventEmitter)
+        new CounterView(counterRoot, this._eventEmitter, config)
         new SmileView(smileRoot, this._eventEmitter)
         new TimeView(timeRoot, this._eventEmitter)
 

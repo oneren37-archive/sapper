@@ -3,19 +3,27 @@ import BoardView from "./board/BoardView"
 import HeaderView from "./header/HeaderView"
 
 export default class GameView extends AbstractViewComponent {
-    constructor (root, eventEmitter) {
+    constructor (root, eventEmitter, config) {
         super(root, eventEmitter)
-        this.render()
+        this.render(config)
     }
 
-    render() {
+    /**
+     * 
+     * @param {object} config 
+     * @param {number} config.fieldX
+     * @param {number} config.fieldY
+     * @param {number} config.minesCount
+     */
+    render(config) {
         this.header = new HeaderView(
             document.querySelector('.header'),
-            this._eventEmitter
+            this._eventEmitter,
+            {minesCount: config.minesCount}
         )
 
         const boardRoot = document.createElement('div')
-        this.board = new BoardView(boardRoot, this._eventEmitter)
+        this.board = new BoardView(boardRoot, this._eventEmitter, config)
         this._root.appendChild(boardRoot)
     }
 }

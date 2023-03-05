@@ -2,10 +2,10 @@ import AbstractViewComponent from "../../abstract/AbstractViewComponent";
 import DisplayView from "../display/DisplayView";
 
 export default class CounterView extends AbstractViewComponent {
-    constructor(root, eventEmitter) {
+    constructor(root, eventEmitter, config) {
         super(root, eventEmitter)
         this.display = new DisplayView(this._root)
-        this.minesCount = 40
+        this.minesCount = config.minesCount
         this.render(this.minesCount)
     }
 

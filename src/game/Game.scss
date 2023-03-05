@@ -1,8 +1,5 @@
 
 .root {
-    width: 280px;
-    height: 350px;
-
     border: 3px solid #7B7B7B;
     border-top: 3px solid #FFFFFF;
     border-left: 3px solid #FFFFFF;
@@ -13,7 +10,7 @@
     align-items: center;
     justify-content: space-between;
 
-    padding: 20px;
+    padding: 10px;
 
     transform: scale(2, 2);
 }

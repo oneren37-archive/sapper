@@ -5,12 +5,18 @@ import GameView from "./GameView"
 import './Game.scss'
 
 export default class Game {
-    constructor() {
+
+    /**
+     * 
+     * @param {object} config 
+     * @param {number} config.fieldX
+     * @param {number} config.fieldY
+     * @param {number} config.minesCount
+     * @param {HTMLElement} config.rootNode
+     */
+    constructor(config) {
         this.eventEmitter = new EventEmitter()
-        this.dataModel = new GameDataModel(this.eventEmitter)
-        this.view = new GameView(
-            document.querySelector('.root'), 
-            this.eventEmitter
-        )
+        this.dataModel = new GameDataModel(this.eventEmitter, config)
+        this.view = new GameView(config.rootNode,this.eventEmitter, config)
     }
 }
