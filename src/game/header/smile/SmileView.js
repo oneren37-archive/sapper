@@ -1,4 +1,5 @@
 import AbstractViewComponent from "../../abstract/AbstractViewComponent";
+import { EVT } from "../../EventEmitter";
 
 import './Smile.scss'
 
@@ -24,11 +25,11 @@ export default class SmileView extends AbstractViewComponent {
         })
         this._root.addEventListener('mouseup', () => {
             this.render('normal')
-            this._eventEmitter.emit('restart')
+            this._eventEmitter.emit(EVT.restart)
         })
-        this._eventEmitter.on('win', () => this.render('win'))
-        this._eventEmitter.on('lose', () => this.render('lose'))
-        this._eventEmitter.on('waiting', () => this.render('waiting'))
-        this._eventEmitter.on('game_continue', () => this.render('normal'))
+        this._eventEmitter.on(EVT.win, () => this.render('win'))
+        this._eventEmitter.on(EVT.lose, () => this.render('lose'))
+        this._eventEmitter.on(EVT.waiting, () => this.render('waiting'))
+        this._eventEmitter.on(EVT.game_continue, () => this.render('normal'))
     }
 }

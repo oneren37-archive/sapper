@@ -1,4 +1,5 @@
 import AbstractViewComponent from "../../abstract/AbstractViewComponent";
+import { EVT } from "../../EventEmitter";
 import DisplayView from "../display/DisplayView";
 
 export default class TimeView extends AbstractViewComponent {
@@ -30,9 +31,9 @@ export default class TimeView extends AbstractViewComponent {
     }
 
     bindEvents() {
-        this._eventEmitter.on('win', () => this.stop())
-        this._eventEmitter.on('lose', () => this.stop())
-        this._eventEmitter.on('restart', () => {
+        this._eventEmitter.on(EVT.win, () => this.stop())
+        this._eventEmitter.on(EVT.lose, () => this.stop())
+        this._eventEmitter.on(EVT.restart, () => {
             this.stop()
             this.render(0)
             this.start()

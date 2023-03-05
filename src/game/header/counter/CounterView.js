@@ -1,4 +1,5 @@
 import AbstractViewComponent from "../../abstract/AbstractViewComponent";
+import { EVT } from "../../EventEmitter";
 import DisplayView from "../display/DisplayView";
 
 export default class CounterView extends AbstractViewComponent {
@@ -17,9 +18,9 @@ export default class CounterView extends AbstractViewComponent {
     }
 
     bindEvents() {
-        this._eventEmitter.on('flagsCountChanged', (cnt) => {
+        this._eventEmitter.on(EVT.flagsCountChanged, (cnt) => {
             this.render(cnt)
         })
-        this._eventEmitter.on('restart', () => this.render(this.minesCount))
+        this._eventEmitter.on(EVT.restart, () => this.render(this.minesCount))
     }
 }

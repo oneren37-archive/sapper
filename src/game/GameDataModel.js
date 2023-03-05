@@ -1,3 +1,5 @@
+import { EVT } from "./EventEmitter"
+
 export default class GameDataModel {
     /** @type {State} */
     #state
@@ -27,14 +29,14 @@ export default class GameDataModel {
     }
 
     bindEvents() {
-        this._eventEmitter.on('pick', this.handlePick.bind(this))
-        this._eventEmitter.on('r_pick', this.handleRightClick.bind(this))
-        this._eventEmitter.on('restart', () => {
+        this._eventEmitter.on(EVT.pick, this.handlePick.bind(this))
+        this._eventEmitter.on(EVT.r_pick, this.handleRightClick.bind(this))
+        this._eventEmitter.on(EVT.restart, () => {
             this.setInitialState()
-            this._eventEmitter.emit('boardUpdated', this.#state)
+            this._eventEmitter.emit(EVT.boardUpdated, this.#state)
         })
-        this._eventEmitter.on('mousedown', () => {
-            this._eventEmitter.emit('waiting')
+        this._eventEmitter.on(EVT.mousedown, () => {
+            this._eventEmitter.emit(EVT.waiting)
         })
     }
 
@@ -59,14 +61,14 @@ export default class GameDataModel {
                 }
             }   
             this.#state.mines[pos[0]][pos[1]] = 10
-            this._eventEmitter.emit('lose')
+            this._eventEmitter.emit(EVT.lose)
         }
         else {
-            this._eventEmitter.emit('game_continue')
+            this._eventEmitter.emit(EVT.game_continue)
             this.openField(pos)
         }
 
-        this._eventEmitter.emit('boardUpdated', this.#state)
+        this._eventEmitter.emit(EVT.boardUpdated, this.#state)
     }
 
     /**@param {Position} pos */
@@ -83,13 +85,13 @@ export default class GameDataModel {
             case 2: this.#state.flagsCount -= 1; break;
         }
 
-        this._eventEmitter.emit('flagsCountChanged', this.#state.minesCount-this.#state.flagsCount)
+        this._eventEmitter.emit(EVT.flagsCountChanged, this.#state.minesCount-this.#state.flagsCount)
 
         if (this.#state.flagsCount === this.#state.minesCount) {
             this.checkWin()
         }
 
-        this._eventEmitter.emit('boardUpdated', this.#state)
+        this._eventEmitter.emit(EVT.boardUpdated, this.#state)
     }
 
     checkWin() {
@@ -103,7 +105,7 @@ export default class GameDataModel {
                 if (mines[i][j] === 9 && flags[i][j] !== 1) return  
             }
         }
-        this._eventEmitter.emit('win')
+        this._eventEmitter.emit(EVT.win)
     }
 
     /**

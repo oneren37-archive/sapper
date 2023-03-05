@@ -1,4 +1,5 @@
 import AbstractViewComponent from "../abstract/AbstractViewComponent";
+import { EVT } from "../EventEmitter";
 
 import './Board.scss'
 
@@ -9,10 +10,10 @@ export default class BoardView extends AbstractViewComponent {
     }
 
     bindEvents() {
-        this._eventEmitter.on('boardUpdated', this.render.bind(this))
-        this._eventEmitter.on('win', this.preventClicks.bind(this))
-        this._eventEmitter.on('lose', this.preventClicks.bind(this))
-        this._eventEmitter.on('restart', this.allowClicks.bind(this))
+        this._eventEmitter.on(EVT.boardUpdated, this.render.bind(this))
+        this._eventEmitter.on(EVT.win, this.preventClicks.bind(this))
+        this._eventEmitter.on(EVT.lose, this.preventClicks.bind(this))
+        this._eventEmitter.on(EVT.restart, this.allowClicks.bind(this))
     }
 
     stopCLickPropogation(e) {e.stopPropagation()}
@@ -33,7 +34,7 @@ export default class BoardView extends AbstractViewComponent {
      */
     handleMouseDown(e, flagState) {
         switch(e.button) {
-            case 0: this._eventEmitter.emit('mousedown'); break;
+            case 0: this._eventEmitter.emit(EVT.mousedown); break;
             case 2: 
                 if (flagState !== 0) {
                     e.target.classList.add('board-row__cell_question-pressed')
@@ -49,8 +50,8 @@ export default class BoardView extends AbstractViewComponent {
     handleMouseUp(e, pos) {
         const [i, j] = pos
         switch (e.button) {
-            case 0: this._eventEmitter.emit('pick', [i, j]); break;
-            case 2: this._eventEmitter.emit('r_pick', [i, j]); break;
+            case 0: this._eventEmitter.emit(EVT.pick, [i, j]); break;
+            case 2: this._eventEmitter.emit(EVT.r_pick, [i, j]); break;
             default: break;
         }
     }

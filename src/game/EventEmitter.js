@@ -34,3 +34,20 @@ export default class EventEmitter {
         this.#events[eventName].forEach(fn => fn(data))
     }
 }
+
+// описание всех событий
+export const EVT = {
+    // действия пользователя
+    pick: 'pick',
+    r_pick: 'r_pick',
+    restart: 'restart',
+    mousedown: 'mousedown',
+    // апдейт вьюшек при изменившемся состоянии
+    boardUpdated: 'boardUpdated',
+    flagsCountChanged: 'flagsCountChanged',
+    waiting: 'waiting',
+    //состояния игры
+    win: 'win',
+    lose: 'lose',
+    game_continue: 'game_continue',
+}
