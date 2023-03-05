@@ -59,6 +59,7 @@ export default class BoardView extends AbstractViewComponent {
     handleMouseUp(e, pos, flagState) {
         const [i, j] = pos
         if (!this.pressed[i][j] === true) return 
+        this.pressed[i][j] = false
         switch (e.button) {
             case 0: 
                 if (flagState === 0) {
@@ -103,9 +104,11 @@ export default class BoardView extends AbstractViewComponent {
                 })
                 cell.addEventListener('mouseup', (e) => this.handleMouseUp(e, [i, j], props.flags ? props.flags[i][j] : 0))
                 cell.addEventListener('mouseleave', (e) => {
-                    this.pressed[i][j] = false
-                    e.target.classList.remove('board-row__cell_question-pressed')
-                    this._eventEmitter.emit(EVT.smileUpdated, 'normal')
+                    if (this.pressed[i][j]) {
+                        this.pressed[i][j] = false
+                        e.target.classList.remove('board-row__cell_question-pressed')
+                        this._eventEmitter.emit(EVT.smileUpdated, 'no_waiting')
+                    }
                 })
                 cell.classList.add('board-row__cell')
 

@@ -8,7 +8,8 @@ export default class SmileView extends AbstractViewComponent {
 
     constructor(root, eventEmitter) {
         super(root, eventEmitter)
-        this.render('normal')
+        this.status = 'normal'
+        this.render(this.status)
     }
 
     /**
@@ -27,8 +28,10 @@ export default class SmileView extends AbstractViewComponent {
             this.render('pressed')
         })
         this._root.addEventListener('mouseleave', () => {
-            this.#pressed = false
-            this.render('normal')
+            if (this.#pressed) {
+                this.#pressed = false
+                this.render('normal')
+            }
         })
         this._root.addEventListener('mouseup', () => {
             if (this.#pressed) {
@@ -39,6 +42,13 @@ export default class SmileView extends AbstractViewComponent {
         })
         this._eventEmitter.on(EVT.win, () => this.render('win'))
         this._eventEmitter.on(EVT.lose, () => this.render('lose'))
-        this._eventEmitter.on(EVT.smileUpdated, (status) => this.render(status))
+        this._eventEmitter.on(EVT.smileUpdated, (status) => {
+            if (status === 'no_waiting') {
+                if (this.status !== 'waiting') return 
+                status = 'normal' 
+            }
+            this.status = status
+            this.render(status)
+        })
     }
 }
