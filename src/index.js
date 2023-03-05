@@ -6,6 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
         rootNode: document.querySelector('.root'),
         fieldX: 20,
         fieldY: 10,
-        minesCount: 2
+        minesCount: 5
     })
 })

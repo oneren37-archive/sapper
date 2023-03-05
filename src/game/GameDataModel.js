@@ -47,6 +47,7 @@ export default class GameDataModel {
             for (let i = 0; i < this.#state.fieldY; i++) {
                 for (let j = 0; j < this.#state.fieldX; j++) {
                     if (this.#state.mines[i][j] === 9) {
+                        this.#state.flags[i][j] = 0
                         this.#state.opened[i][j] = true
                     }
                     else if (this.#state.flags[i][j] === 1) {
